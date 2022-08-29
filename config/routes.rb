@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get '*alias', controller: :shorteners, action: :show, as: :alias
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  post '/', controller: :shorteners, action: :create, as: :shortener
 end
