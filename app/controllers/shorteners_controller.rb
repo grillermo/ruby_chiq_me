@@ -4,7 +4,9 @@ class ShortenersController < ApplicationController
 
   def create
     url =  ActiveRecord::Base::sanitize_sql(params[:url])
-    shortener = Shortener::ShortenedUrl.generate(url)
+    # hack to fix owner needed until we create a User model
+    fake_owner = OpenStruct.new('shortened_urls' => Shortener::ShortenedUrl.all)
+    shortener = Shortener::ShortenedUrl.generate(url, owner: fake_owner)
 
     render plain: alias_url(shortener.unique_key)
   end
